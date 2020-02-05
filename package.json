@@ -1,0 +1,63 @@
+{
+  "name": "sds-api",
+  "version": "1.0.0",
+  "description": "Stratio Design System API",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc && npm run copy && echo 'Build done!!'",
+    "dev": "tsc --watch",
+    "lint": "tslint --project tsconfig.json --config tslint.json",
+    "start": "tsc && npm run copy && NODE_ENV=development pm2 start dist/index.js --env $NODE_ENV --watch --time && npm run watch",
+    "watch": "watch 'npm run build' ./src",
+    "logs": "pm2 logs",
+    "copy": "cp ./src/swagger.yml ./dist",
+    "start:dev": "pm2 delete dist/index.js || true && ./tools/init-mysql-db.sh && export NODE_ENV=development && sequelize db:migrate --env $NODE_ENV && npm start",
+    "start:test": "sequelize db:migrate --env $NODE_ENV && tsc && pm2 start dist/index.js",
+    "start:pro": "sequelize db:migrate --env $NODE_ENV && pm2 start stey-playbool.js",
+    "test": "echo \"Warn: No test specified\""
+  },
+  "author": "Nul Pàs <manu@lunaeme.com> (https://github.com/nulpas)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nulpas/circe-api.git"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-validator": "^6.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.1.0",
+    "sequelize": "^5.21.3",
+    "swagger-ui-express": "^4.1.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/node": "^7.8.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/bluebird": "^3.5.29",
+    "@types/body-parser": "^1.17.1",
+    "@types/cookie-parser": "^1.4.2",
+    "@types/cors": "^2.8.6",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.2",
+    "@types/jsonwebtoken": "^8.3.7",
+    "@types/node": "^13.7.0",
+    "@types/validator": "^12.0.1",
+    "dotenv": "^8.2.0",
+    "pm2": "^4.2.3",
+    "portscanner": "^2.2.0",
+    "sequelize-cli": "^5.5.1",
+    "tslib": "^1.10.0",
+    "tslint": "^6.0.0",
+    "typescript": "^3.7.5",
+    "watch": "^1.0.2",
+    "yamljs": "^0.3.0"
+  }
+}

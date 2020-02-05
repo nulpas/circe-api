@@ -1,0 +1,198 @@
+openapi: 3.0.0
+info:
+  description: API
+  version: 0.0.0-beta.15
+  title: VyZ API
+  contact:
+    email: manu@lunaeme.com
+  license:
+    name: MIT
+    url: 'https://github.com/nulpas/su-schedule-api/blob/master/LICENSE'
+servers:
+  - url: http://localhost:4001
+    description: 'Deveolpment server'
+tags:
+  - name: auth
+    description: ''
+  - name: user
+    description: ''
+  - name: activities
+    description: ''
+paths:
+  /register:
+    post:
+      tags:
+        - auth
+      summary: Register new user
+      description: ''
+      operationId: addUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                confirmPassword:
+                  type: string
+              example:
+                name: Nul Pàs Example
+                email: nulpas@yahoo.es
+                password: Password123
+                confirmPassword: Password123
+      responses:
+        '405':
+          description: Invalid input
+        '422':
+          description: Unprocessable Entity
+  /login:
+    post:
+      tags:
+        - auth
+      summary: Login as user
+      description: ''
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              example:
+                email: nulpas@yahoo.es
+                password: Password123
+      responses:
+        '405':
+          description: Invalid input
+        '422':
+          description: Unprocessable Entity
+  /users:
+    get:
+      tags:
+        - user
+      summary: Get all users
+      description: ''
+      security:
+        - bearerAuth: []
+      responses:
+        '403':
+          description: Forbidden
+        '405':
+          description: Invalid input
+        '422':
+          description: Unprocessable Entity
+  /user/{userId}:
+    get:
+      tags:
+        - user
+      summary: Get one user by id
+      description: ''
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: integer
+            example: 2
+          required: true
+          description: 'Numeric ID of the user to get'
+      security:
+        - bearerAuth: []
+      responses:
+        '403':
+          description: Forbidden
+        '405':
+          description: Invalid input
+        '422':
+          description: Unprocessable Entity
+    put:
+      tags:
+        - user
+      summary: Update one user by id
+      description: ''
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: integer
+            example: 2
+          required: true
+          description: 'Numeric ID of the user to update'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                active:
+                  type: boolean
+              example:
+                name: 'Nul Pàs Updated'
+                email: nulpas@yahoo.es
+                password: Password123
+                active: false
+      security:
+        - bearerAuth: []
+      responses:
+        '403':
+          description: Forbidden
+        '405':
+          description: Invalid input
+        '422':
+          description: Unprocessable Entity
+  /user/{userId}/active:
+    put:
+      tags:
+        - user
+      summary: Update active status for one user by id
+      description: ''
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: integer
+            example: 2
+          required: true
+          description: 'Numeric ID of the user to update'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                active:
+                  type: boolean
+              example:
+                active: false
+      security:
+        - bearerAuth: []
+      responses:
+        '403':
+          description: Forbidden
+        '405':
+          description: Invalid input
+        '422':
+          description: Unprocessable Entity
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'You need to execute login endPoint and paste here de value of success token'
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'

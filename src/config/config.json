@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "nulpas",
+    "password": "chaimae",
+    "database": "su",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "playbook",
+    "password": "GKbt_Wib3$",
+    "database": "playbook",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

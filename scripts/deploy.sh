@@ -2,7 +2,7 @@
 
 set -x
 
-ssh -o "StrictHostKeyChecking no" travis@3.125.13.215 /bin/bash << EOF
+ssh -o "StrictHostKeyChecking no" travis@39.45.34.25 /bin/bash << EOF
   cd /var/www/html/api
   pm2 delete stey-playbool.js -s
   rm -rf *

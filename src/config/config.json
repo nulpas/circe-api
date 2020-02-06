@@ -2,7 +2,7 @@
   "development": {
     "username": "nulpas",
     "password": "chaimae",
-    "database": "su",
+    "database": "circe",
     "host": "localhost",
     "dialect": "mysql"
   },
@@ -14,9 +14,9 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "playbook",
-    "password": "GKbt_Wib3$",
-    "database": "playbook",
+    "username": "circe",
+    "password": "4Rv8_shv6_1sEJ",
+    "database": "circe",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }

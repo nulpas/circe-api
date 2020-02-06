@@ -24,19 +24,19 @@ sequelize.sync()
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(cors());
 
-    app.get('/api', (request: Request, response: Response) => {
+    app.get('/', (request: Request, response: Response) => {
       response.json('Hello World, how are you?');
     });
 
     Object.keys(routesUnprotected).forEach((e: string) => {
-      app.use('/api', routesUnprotected[e]);
+      app.use('/', routesUnprotected[e]);
     });
 
     if (env === 'development') {
-      app.use('/api/api-docs', swaggerUi.serve, swaggerUi.setup(yaml.load(path.resolve(__dirname, './swagger.yml'))));
+      app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(yaml.load(path.resolve(__dirname, './swagger.yml'))));
     }
 
-    app.use('/api/healthcheck', (request: Request, response: Response) => {
+    app.use('/healthcheck', (request: Request, response: Response) => {
       const _env: string = process.env.NODE_ENV || 'development';
       const config: any = configFile[_env];
       const sequelizeTest: Sequelize = new Sequelize(config.database, config.username, config.password, {
@@ -54,11 +54,11 @@ sequelize.sync()
 
     // ## Loads all routes that need token authentication.
     Object.keys(routes).forEach((e: string) => {
-      app.use('/api', routes[e]);
+      app.use('/', routes[e]);
     });
 
     // ## Protected route test
-    app.get('/api/protected', (request: Request, response: Response) => {
+    app.get('/protected', (request: Request, response: Response) => {
       response.json('Protected Hello World');
     });
 

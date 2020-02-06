@@ -16,7 +16,7 @@ import yaml from 'yamljs';
 dotEnv.config();
 const env: string = process.env.NODE_ENV || 'development';
 const app: Express = express();
-const port: number = 4001;
+const port: number = 4009;
 
 sequelize.sync()
   .then(() => {

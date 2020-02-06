@@ -2,13 +2,13 @@
 
 set -x
 
-ssh -o "StrictHostKeyChecking no" travis@39.45.34.25 /bin/bash << EOF
-  cd /var/www/html/api
-  pm2 delete stey-playbool.js -s
+ssh -o "StrictHostKeyChecking no" travis@188.166.18.204 -p 18665 /bin/bash << EOF
+  cd /var/www/html/circe/api
+  pm2 delete sds-circe.js -s
   rm -rf *
   rm -rf .*
-  git clone https://github.com/mpastor-stratio/ey-docs-api.git
-  cd ey-docs-api
+  git clone https://github.com/nulpas/circe-api.git
+  cd circe-api
   yarn
   yarn build
   mv dist/* ../
@@ -17,9 +17,9 @@ ssh -o "StrictHostKeyChecking no" travis@39.45.34.25 /bin/bash << EOF
   mv package.json ../
   mv ecosystem.config.js ../
   cd ../
-  rm -rf ey-docs-api swagger.yml
-  mv index.js stey-playbool.js
-  mv index.js.map stey-playbool.js.map
+  rm -rf circe-api swagger.yml
+  mv index.js sds-circe.js
+  mv index.js.map sds-circe.js.map
   export JWT_SECRET=${JWT_SECRET}
   export SALT_ROUNDS=${SALT_ROUNDS}
   export NODE_ENV=${NODE_ENV}

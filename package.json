@@ -1,6 +1,6 @@
 {
   "name": "sds-api",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Stratio Design System API",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "copy": "cp ./src/swagger.yml ./dist",
     "start:dev": "pm2 delete dist/index.js || true && ./tools/init-mysql-db.sh && export NODE_ENV=development && sequelize db:migrate --env $NODE_ENV && npm start",
     "start:test": "sequelize db:migrate --env $NODE_ENV && tsc && pm2 start dist/index.js",
-    "start:pro": "sequelize db:migrate --env $NODE_ENV && pm2 start stey-playbool.js",
+    "start:pro": "sequelize db:migrate --env $NODE_ENV && pm2 start sds-circe.js",
     "test": "echo \"Warn: No test specified\""
   },
   "author": "Nul Pàs <manu@lunaeme.com> (https://github.com/nulpas)",

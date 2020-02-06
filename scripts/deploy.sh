@@ -3,7 +3,7 @@
 set -x
 
 ssh -o "StrictHostKeyChecking no" travis@188.166.18.204 -p 18665 /bin/bash << EOF
-  cd /var/www/html/circe/api
+  cd /var/www/circe/api
   pm2 delete sds-circe.js -s
   rm -rf *
   rm -rf .*

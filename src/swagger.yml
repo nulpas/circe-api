@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   description: API
   version: 0.0.0-beta.15
-  title: VyZ API
+  title: SDS API
   contact:
     email: manu@lunaeme.com
   license:

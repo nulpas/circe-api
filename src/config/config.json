@@ -19,5 +19,12 @@
     "database": "circe",
     "host": "127.0.0.1",
     "dialect": "mysql"
+  },
+  "production_for_mac": {
+    "username": "nulpas",
+    "password": "chaimae",
+    "database": "circe_mac",
+    "host": "docker.for.mac.host.internal",
+    "dialect": "mysql"
   }
 }

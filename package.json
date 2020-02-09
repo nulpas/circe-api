@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc && npm run copy && echo 'Build done!!'",
+    "build:pro": "npm run build && ./scripts/build.sh",
     "dev": "tsc --watch",
     "lint": "tslint --project tsconfig.json --config tslint.json",
     "start": "tsc && npm run copy && NODE_ENV=development pm2 start dist/index.js --env $NODE_ENV --watch --time && npm run watch",

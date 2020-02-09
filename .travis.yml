@@ -15,6 +15,7 @@ jobs:
         - mysql
       env:
         - NODE_ENV=test
+        - secure: FmxJ47KaOTY2fNJOnIohMMlJM8Q7gjfi4u/gz/9k1miGYrzds0N7vUjH+N6jjIxPgH9geibEURfUGgv4YiqEXNV+k4S9QPBK1DiuSq92fuDFx6bBCuwNhs+OJc4zdyuNE4iiXfSTymLF8ZK4ubyz3U9PDMdqU3OVP2OOWF+/QuBMv08O0g2hF/BewQtP8iTlo+X4SuTjqg8tl9K3IgEBXTee2+v419LuhDVTpSPpzGA2koaeMLYpdkMzgofAFVu2R6zqY3UvCbKHawbaJrl/POioAwxKnaUblBFDX5jup8U0YtXxCiy+3Ecn9sb0IJY+2vpg0D4l7dzizWpLmAGBTp7G9JfKNR2NgEqfpcEih6MaAF/MW6NriZsskAIxTPjYq3Iy0rD1COYEkq1NIJYvNoKU/ptuwhnP+YYgUIz6hztE/HxiSqdPzY0+GHfqGLb2MsrTysiLRMk3ohyFlhOebfiS4PzFC+8jYisVOtsEMcaGQDkHwK/315Eerz8N1OqOSf9H1nzg8gWaPDacblg3+REZ+PJpeR6G1KVHOjIc23Anbio6+sJETNgZqMGOtYWjDneFYchnJZeyn8Y0gj1YkEd/MPUSLW11Ipg2jqAvg74WwaDUYP5uN4Cq+i/eJtUshQMnC7PWi6T30ASM4eVYf+2yr4by2xrMHl7Xl4RP310=
       before_install:
         - npm i npm yarn -g
         - mysql -e 'CREATE DATABASE database_test;'
@@ -30,8 +31,15 @@ jobs:
         - chmod 600 travis-ci_rsa
         - mv travis-ci_rsa ~/.ssh/id_rsa
         - mv travis-ci_rsa.pub ~/.ssh/id_rsa.pub
+      script:
+        - rm -rf node_modules yarn.lock
+        - yarn install --production=false
+        - yarn build:pro
+        - docker login repo.treescale.com --username=nulpas --password=$TREESCALE_PS
+        - docker build -t repo.treescale.com/nulpas/sds-circe-api:latest . --build-arg nodeEnv=$NODE_ENV --build-arg jwtSecret=$JWT_SECRET --build-arg saltRounds=$SALT_ROUNDS
+        - docker push repo.treescale.com/nulpas/sds-circe-api:latest
       after_success:
-        - JWT_SECRET=$JWT_SECRET SALT_ROUNDS=$SALT_ROUNDS NODE_ENV=$NODE_ENV bash ./scripts/deploy.sh
+        - JWT_SECRET=$JWT_SECRET SALT_ROUNDS=$SALT_ROUNDS NODE_ENV=$NODE_ENV TREESCALE_PS=$TREESCALE_PS bash ./scripts/deploy.sh
 
 stages:
   - name: test

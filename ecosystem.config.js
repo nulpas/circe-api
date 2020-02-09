@@ -1,7 +1,7 @@
 module.exports = {
   apps : [{
-    name: 'vyz',
-    script: './vyz.js',
+    name: 'sds-circe-api',
+    script: './sds-circe-api.js',
     env: {
       NODE_ENV: 'development'
     },
